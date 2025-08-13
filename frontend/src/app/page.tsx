@@ -5,7 +5,7 @@ export default function Home() {
     <>
     <h1 className="flex justify-center text-2xl">Welcome</h1>
     <div className="flex justify-evenly pt-8">
-      <Link href="/admin">Admin</Link>
+      <Link href="/staff">Staff</Link>
     </div>
     </>
   );

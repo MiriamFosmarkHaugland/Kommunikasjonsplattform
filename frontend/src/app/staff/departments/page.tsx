@@ -22,11 +22,11 @@ export default function DepartmentsPage() {
 
     return (
         <>
-            <Form handleSubmit={handleSubmit} title="Create Department">
-                <Field title={"Enter name: "} type={'text'} name={'name'}></Field>
-                <Field title={"Enter room number: "} type={'text'} name={'room_number'}></Field>
-                <Field title={"Enter room type: "} type={'text'} name={'room_type'}></Field>
-                <Field title={"Enter room capacity: "} type={'text'} name={'capacity'}></Field>
+            <Form handleSubmit={handleSubmit} title="Create department">
+                <Field title={"Name: "} type={'text'} name={'name'}></Field>
+                <Field title={"Room number: "} type={'text'} name={'room_number'}></Field>
+                <Field title={"Room type: "} type={'text'} name={'room_type'}></Field>
+                <Field title={"Room capacity: "} type={'text'} name={'capacity'}></Field>
             </Form>
         </>
     );

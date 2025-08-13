@@ -1,12 +1,9 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
 import Form from "../../components/form";
 import Field from "../../components/field";
 import { useState } from "react";
 import uploadImage from "../../../../services/ImageUpload";
-
-
+import Home from "../../components/home";
 
 export default function CreateChildrenPage() {
 
@@ -55,14 +52,14 @@ export default function CreateChildrenPage() {
     }
     return (
         <>
-            <Form handleSubmit={handleSubmit} title="Register new Child">
-                <Field title={"Enter name: "} type={'text'} name={'firstName'} required></Field>
-                <Field title={"Enter last name:"} type={'text'} name={'lastName'} required></Field>
-                <Field title={"Enter birth date: "} type={'date'} name={'dateOfBirth'} required></Field>
-
+            <div className="flex justify-start">
+                <Home/>
+            </div>
+            <Form handleSubmit={handleSubmit} title="Register new child">
+                <Field title={"Name: "} type={'text'} name={'firstName'} required></Field>
+                <Field title={"Lastname:"} type={'text'} name={'lastName'} required></Field>
+                <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required></Field>
                 <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'}></Field>
-
-
             </Form>
         </>
     );
