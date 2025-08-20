@@ -4,6 +4,7 @@ using Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(InstitutionDbContext))]
-    partial class InstitutionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250815084633_PatchChildDto")]
+    partial class PatchChildDto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace Backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly?>("Date_of_birth")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("Date_of_birth")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Department_id")
                         .HasColumnType("int");

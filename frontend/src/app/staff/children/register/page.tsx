@@ -2,8 +2,9 @@
 import Form from "../../components/form";
 import Field from "../../components/field";
 import { useState } from "react";
-import uploadImage from "../../../../services/ImageUpload";
+import uploadImage from "../../../../lib/api/upload";
 import Home from "../../components/home";
+import Button from "../../components/button";
 
 export default function CreateChildrenPage() {
 
@@ -55,11 +56,12 @@ export default function CreateChildrenPage() {
             <div className="flex justify-start">
                 <Home/>
             </div>
-            <Form handleSubmit={handleSubmit} title="Register new child">
-                <Field title={"Name: "} type={'text'} name={'firstName'} required></Field>
-                <Field title={"Lastname:"} type={'text'} name={'lastName'} required></Field>
-                <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required></Field>
-                <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'}></Field>
+            <Form title="Register new child">
+                <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false}></Field>
+                <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false}></Field>
+                <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required hidden={false}></Field>
+                <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'} hidden={false}></Field>
+                <Button handleButton={handleSubmit} text="" hidden={false} variant='Primary'/>
             </Form>
         </>
     );

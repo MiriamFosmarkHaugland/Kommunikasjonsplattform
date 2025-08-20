@@ -53,7 +53,6 @@ export default function ChildrenPage() {
                 <ContainerChoice/>
             </div>
             
-            
             {childrenList.length === 0 ? (
                 <h1>There are no children found.</h1>
             ) : (

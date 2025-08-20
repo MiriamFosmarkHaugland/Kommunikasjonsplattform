@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend;
+using backend.DTOs;
+
 
 // This code was generated using the ASP.NET code-generation tool:
 // dotnet aspnet-codegenerator controller -name ChildrenController -async -api -m Children -dc InstitutionDbContext -outDir Controllers
@@ -75,6 +76,57 @@ namespace Backend.Controllers
 
             return NoContent();
         }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchChild(int id, [FromBody] PatchChildDto patchDto)
+    {
+        var child = await _context.Children.FindAsync(id);
+
+        if (child == null)
+        {
+            return NotFound();
+        }
+
+            // Manually apply updates only if properties are not null
+        if (patchDto.First_name != null)
+        {
+            child.First_name = patchDto.First_name;
+        }  
+        if (patchDto.Last_name != null)
+        {
+            child.Last_name = patchDto.Last_name;
+        }
+        if (patchDto.Date_of_birth != null)
+        {
+            child.Date_of_birth = patchDto.Date_of_birth;
+        }
+        if (patchDto.Profile_image != null)
+        {
+            child.Profile_image = patchDto.Profile_image;
+        }
+        if (patchDto.Department_id.HasValue)
+        {
+            child.Department_id = patchDto.Department_id.Value;
+        }
+        
+        // Check for validation errors after applying the patch
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        // Save changes to the database
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw;
+        }
+
+        return Ok(child);
+    }
 
         // POST: api/Children
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

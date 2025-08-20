@@ -6,7 +6,7 @@ public class Children
     public int Id { get; set; }
     public string? First_name { get; set; }
     public string? Last_name { get; set; }
-    public DateTime? Date_of_birth { get; set; }
+    public DateOnly? Date_of_birth { get; set; }
     public string? Profile_image { get; set; }
 
     // One-to-many -> Many children can be in one department
