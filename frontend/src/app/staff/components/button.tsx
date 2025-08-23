@@ -6,7 +6,7 @@ type Props = {
 }
 
 const ButtonVariants = {
-    Primary: "bg-[#075fd5]",
+    Primary: "bg-[#4630eb]",
     Danger: "bg-[#db5d59]"
 }
 

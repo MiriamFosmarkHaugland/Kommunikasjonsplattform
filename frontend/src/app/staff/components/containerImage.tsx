@@ -12,7 +12,7 @@ export default function ContainerImage({ name, image }: Props) {
     return(
         <>
             <div>
-                <div className="h-24 w-24 border rounded-lg overflow-hidden">
+                <div className="h-28 w-28 bg-[#f3efea] rounded-lg overflow-hidden">
                     <img src={`${imageEndpoint}${image}`} alt="Image" className="rounded-lg"/>
                 </div>
                 <h1 className="text-center">{name}</h1>

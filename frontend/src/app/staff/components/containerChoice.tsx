@@ -1,14 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ContainerChoice() {
+type Props = {
+    image: string;
+    text: string;
+}
+
+export default function ContainerChoice({image, text}:Props) {
 
     return(
-        <>
-            <div className="h-14 w-14 rounded-lg bg-[#edf3d7]">
-                {/* <Link href="">
-                    <Image src="" alt=""/>
-                </Link> */}
+        <>  <div className="flex flex-col items-center pt-15 pb-4">
+                <div className="h-16 w-16 rounded-lg bg-[#f3efea] flex items-center justify-center">
+                    <Link href="/staff">
+                        <Image src={image} alt="Icon" width="40" height="40"/>
+                        
+                    </Link>
+                    
+                </div>
+                <h1 className="text-center text-xs">{text}</h1>
             </div>
         </>
     )

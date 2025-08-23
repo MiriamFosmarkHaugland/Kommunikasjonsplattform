@@ -36,21 +36,18 @@ export default function ChildrenPage() {
     }
     return (
         <>
-            <div className="flex justify-between">
+            <div className="flex justify-between pt-12">
                 <Home/>
+                <h1 className="text-2xl">Swans</h1>
                 <Register/>
             </div>
-            
-            <div className="flex justify-center">
-                <h1 className="text-2xl">Swans</h1>
-            </div>
 
-            <div className="grid grid-cols-5 gap-4 pt-8 pb-8">
-                <ContainerChoice/>
-                <ContainerChoice/>
-                <ContainerChoice/>
-                <ContainerChoice/>
-                <ContainerChoice/>
+            <div className="grid grid-cols-5">
+                <ContainerChoice image={"/counting.png"} text="Count"/>
+                <ContainerChoice image={"/message.png"} text="Message"/>
+                <ContainerChoice image={"/post.png"} text="Post"/>
+                <ContainerChoice image={"/calendar.png"} text="Calendar"/>
+                <ContainerChoice image={"/document.png"} text="Documents"/>
             </div>
             
             {childrenList.length === 0 ? (

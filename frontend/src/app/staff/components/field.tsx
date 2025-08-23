@@ -9,14 +9,15 @@ interface Props {
     disabled?: boolean;
     value?: string;
     hidden: boolean;
+    placeholder?: string;
 }
 
-export default function Field({ title, type, name, onChange, required = false, disabled = false, value , hidden}: Props) {
+export default function Field({ title, type, name, onChange, required = false, disabled = false, value , hidden, placeholder}: Props) {
 
     return (
         <>
             <label hidden={hidden} className="block pt-4"> {title}
-                <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} className="border rounded-sm block h-10 w-full disabled:border-none"></input>
+                <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} placeholder={placeholder} className="border rounded-sm block h-10 w-full disabled:border-none"></input>
             </label>
         </>
     )

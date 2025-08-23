@@ -14,7 +14,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        {children}
+        <div className="fixed bottom-0 w-full h-200 bg-white rounded-2xl"></div>
+        <div className="relative">
+          {children}
+        </div>
       </body>
     </html>
   );

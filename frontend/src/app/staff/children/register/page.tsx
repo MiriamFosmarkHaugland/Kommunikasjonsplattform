@@ -53,15 +53,17 @@ export default function CreateChildrenPage() {
     }
     return (
         <>
-            <div className="flex justify-start">
+            <div className="flex justify-between pt-12 pb-8">
                 <Home/>
+                <h1 className="text-2xl">Register new child</h1>
+                <div className="w-24 h-11"></div>
             </div>
-            <Form title="Register new child">
-                <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false}></Field>
-                <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false}></Field>
+            <Form>
+                <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false} placeholder="Kari"></Field>
+                <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false} placeholder="Nordmann"></Field>
                 <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required hidden={false}></Field>
                 <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'} hidden={false}></Field>
-                <Button handleButton={handleSubmit} text="" hidden={false} variant='Primary'/>
+                <Button handleButton={handleSubmit} text="Submit" hidden={false} variant='Primary'/>
             </Form>
         </>
     );
