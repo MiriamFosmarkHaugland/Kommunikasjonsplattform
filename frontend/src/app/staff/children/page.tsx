@@ -7,6 +7,7 @@ import Home from "../components/home";
 import Image from "next/image";
 import Register from "../components/register";
 import ContainerChoice from "../components/containerChoice";
+import TopBar from "../components/topBar";
 
 export type Child = {
     id: string;
@@ -36,11 +37,7 @@ export default function ChildrenPage() {
     }
     return (
         <>
-            <div className="flex justify-between pt-12">
-                <Home/>
-                <h1 className="text-2xl">Swans</h1>
-                <Register/>
-            </div>
+            <TopBar leftItem={<Home/>} middleItem="Swans" rightItem={<Register/>}></TopBar>
 
             <div className="grid grid-cols-5">
                 <ContainerChoice image={"/counting.png"} text="Count"/>
@@ -51,9 +48,11 @@ export default function ChildrenPage() {
             </div>
             
             {childrenList.length === 0 ? (
-                <h1>There are no children found.</h1>
+                <div className="flex flex-col items-center justify-center">
+                    <p>There are no children found.</p>
+                </div>
             ) : (
-                <div className="grid grid-cols-3 gap-4 place-items-center">
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center">
                     {childrenList.map((child) => (
                         <Link href={'/staff/children/' + child.id} key={child.id}>
                             <ContainerImage key={child.id} name={child.first_name} image={child.profile_image}></ContainerImage>

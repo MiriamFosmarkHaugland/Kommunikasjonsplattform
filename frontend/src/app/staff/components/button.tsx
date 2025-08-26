@@ -7,7 +7,8 @@ type Props = {
 
 const ButtonVariants = {
     Primary: "bg-[#4630eb]",
-    Danger: "bg-[#db5d59]"
+    Danger: "bg-[#db5d59]",
+    Neutral: "bg-[#999999]"
 }
 
 export default function Button({ handleButton, hidden, text, variant }: Props) {
@@ -19,4 +20,3 @@ export default function Button({ handleButton, hidden, text, variant }: Props) {
         </>
     )
 }
-

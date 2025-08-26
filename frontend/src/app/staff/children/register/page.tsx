@@ -5,6 +5,7 @@ import { useState } from "react";
 import uploadImage from "../../../../lib/api/upload";
 import Home from "../../components/home";
 import Button from "../../components/button";
+import TopBar from "../../components/topBar";
 
 export default function CreateChildrenPage() {
 
@@ -53,11 +54,7 @@ export default function CreateChildrenPage() {
     }
     return (
         <>
-            <div className="flex justify-between pt-12 pb-8">
-                <Home/>
-                <h1 className="text-2xl">Register new child</h1>
-                <div className="w-24 h-11"></div>
-            </div>
+            <TopBar leftItem={<Home/>} middleItem="Register new child" rightItem=""></TopBar>
             <Form>
                 <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false} placeholder="Kari"></Field>
                 <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false} placeholder="Nordmann"></Field>

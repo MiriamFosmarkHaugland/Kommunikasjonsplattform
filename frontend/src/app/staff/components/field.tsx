@@ -16,10 +16,9 @@ export default function Field({ title, type, name, onChange, required = false, d
 
     return (
         <>
-            <label hidden={hidden} className="block pt-4"> {title}
-                <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} placeholder={placeholder} className="border rounded-sm block h-10 w-full disabled:border-none"></input>
+            <label hidden={hidden} className="block pt-2"> <strong>{title}</strong>
+                <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} placeholder={placeholder} className="border rounded-sm block h-10 w-full disabled:border-none px-2"></input>
             </label>
         </>
     )
 }
-
