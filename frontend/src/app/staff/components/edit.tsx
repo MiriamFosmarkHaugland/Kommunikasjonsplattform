@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import EditIcon from './icons/editIcon';
 
 interface Props {
     onClick?: () => void;
@@ -9,8 +9,7 @@ export default function Edit(props: Props) {
     
     return (
         <Link href="" onClick={props.onClick} className="flex flex-col items-center w-24">
-            <Image src="/edit.png" alt="Edit" height="24" width="24"/>
-            <h1 className="text-sm">Edit</h1>
+            <EditIcon className="w-8 h-8"/>
         </Link>
     )
 }

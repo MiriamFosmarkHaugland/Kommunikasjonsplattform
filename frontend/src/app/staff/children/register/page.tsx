@@ -3,7 +3,7 @@ import Form from "../../components/form";
 import Field from "../../components/field";
 import { useState } from "react";
 import uploadImage from "../../../../lib/api/upload";
-import Home from "../../components/home";
+import Back from "../../components/back";
 import Button from "../../components/button";
 import TopBar from "../../components/topBar";
 
@@ -54,14 +54,15 @@ export default function CreateChildrenPage() {
     }
     return (
         <>
-            <TopBar leftItem={<Home/>} middleItem="Register new child" rightItem=""></TopBar>
+            <TopBar leftItem={<Back/>} middleItem="Register new child" rightItem=""></TopBar>
+            <h1 className="text-sm p-4">BASIC INFORMATION</h1>
             <Form>
                 <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false} placeholder="Kari"></Field>
                 <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false} placeholder="Nordmann"></Field>
                 <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required hidden={false}></Field>
                 <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'} hidden={false}></Field>
-                <Button handleButton={handleSubmit} text="Submit" hidden={false} variant='Primary'/>
             </Form>
+            <Button handleButton={handleSubmit} text="Submit" hidden={false} variant='Primary'/>
         </>
     );
 }

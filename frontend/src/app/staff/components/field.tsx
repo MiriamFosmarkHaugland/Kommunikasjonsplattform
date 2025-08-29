@@ -13,12 +13,15 @@ interface Props {
 }
 
 export default function Field({ title, type, name, onChange, required = false, disabled = false, value , hidden, placeholder}: Props) {
-
+    if(hidden) return null;
     return (
         <>
-            <label hidden={hidden} className="block pt-2"> <strong>{title}</strong>
-                <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} placeholder={placeholder} className="border rounded-sm block h-10 w-full disabled:border-none px-2"></input>
-            </label>
+            <tr>
+                <td className="font-medium text-gray-600 border-t border-b border-gray-400">{title}</td>
+                <td className="border-t border-b border-l pl-2 border-gray-400">
+                    <input onChange={onChange} value={value} type={type} name={name} required={required} disabled={disabled} placeholder={placeholder} className="block h-8 w-full disabled:border-none"></input>
+                </td>
+            </tr>
         </>
     )
 }

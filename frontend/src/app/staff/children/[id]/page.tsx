@@ -1,7 +1,6 @@
 "use client";
 import { use, useEffect, useRef, useState } from 'react';
 import { Child } from '../page';
-import Home from '../../components/home';
 import Edit from '../../components/edit';
 import Form from '../../components/form';
 import Field from '../../components/field';
@@ -9,7 +8,9 @@ import uploadImage from '@/lib/api/upload';
 import Button from '../../components/button';
 import NotFound from '@/app/components/notFound';
 import TopBar from '../../components/topBar';
-import ContainerImage from '../../components/containerImage';
+import Back from '../../components/back';
+import ShortDetails from '../../components/shortDetails';
+import Link from 'next/link';
 
 // Dynamic route segment for child details
 interface Props {
@@ -151,28 +152,34 @@ export default function ChildPage({ params }: Props) {
                 ) : (
                     <>
                         <TopBar 
-                            leftItem={<Home/>} 
-                            middleItem={child?.first_name}
+                            leftItem={<Back/>} 
+                            middleItem={"Details"}
                             rightItem={<Edit onClick={handleEdit}/>}>
                         </TopBar>
 
-                        <div className='flex flex-col items-center pt-4'>
-                            {child?.profile_image ? (
-                                <ContainerImage name={""} image={child.profile_image}/>
-                            ): (
-                                <div className="h-full w-full flex items-center justify-center text-gray-500">No Image</div>
-                            )}
+                        {child?.profile_image ? (
+                            <ShortDetails name={child.first_name} lastName={child.last_name} image={child.profile_image}/>
+                        ): (
+                            <div className="h-full w-full flex items-center justify-center text-gray-500">No Image</div>
+                        )}
+
+                        <div className="flex justify-around bg-gray-100 h-12 items-center border-t border-b border-gray-200">
+                            <Link href="/staff">Details</Link>
+                            <Link href="/staff">Calendar</Link>
+                            <Link href="/staff">Documents</Link>
                         </div>
 
+                        <h1 className="text-sm p-4">BASIC INFORMATION</h1>
+                        
                         <Form>
                             <Field onChange={(e) => handleChange("first_name", e.target.value)} title={"Name"} value={child?.first_name} type={'text'} name={'firstName'} disabled={!canEdit} hidden={false} placeholder="Name..."/>
                             <Field onChange={(e) => handleChange("last_name", e.target.value)} title={"Lastname"} value={child?.last_name} type={'text'} name={'lastName'} disabled={!canEdit} hidden={false} placeholder="Lastname..."/>
-                            <Field onChange={(e) => handleChange("date_of_birth", e.target.value)} title={"Date og birth"} value={child?.date_of_birth} type={'date'} name={'dateOfBirth'} disabled={!canEdit} hidden={false}/>
-                            <Field onChange={handleImage} title={"Add profile picture"} type={'file'} name={'image'} disabled={!canEdit} hidden={!canEdit}/>
-                            <Button handleButton={handleSubmit} text='Submit' hidden={!canEdit} variant='Primary'/>
-                            <Button handleButton={handleCancel} text="Cancel" hidden={!canEdit} variant="Neutral"/>
-                            <Button handleButton={handleDelete} text="Delete" hidden={!canEdit} variant='Danger'/>
+                            <Field onChange={(e) => handleChange("date_of_birth", e.target.value)} title={"Date of birth"} value={child?.date_of_birth} type={'date'} name={'dateOfBirth'} disabled={!canEdit} hidden={false}/>
+                            <Field onChange={handleImage} title={"Profile picture"} type={'file'} name={'image'} disabled={!canEdit} hidden={!canEdit}/>
                         </Form>
+                        <Button handleButton={handleSubmit} text='Submit' hidden={!canEdit} variant='Primary'/>
+                        <Button handleButton={handleCancel} text="Cancel" hidden={!canEdit} variant="Neutral"/>
+                        <Button handleButton={handleDelete} text="Delete" hidden={!canEdit} variant='Danger'/>
                     </>
                 )}
                 

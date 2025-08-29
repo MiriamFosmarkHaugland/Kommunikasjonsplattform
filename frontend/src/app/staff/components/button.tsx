@@ -6,7 +6,7 @@ type Props = {
 }
 
 const ButtonVariants = {
-    Primary: "bg-[#4630eb]",
+    Primary: "bg-[#2463eb]",
     Danger: "bg-[#db5d59]",
     Neutral: "bg-[#999999]"
 }
@@ -14,7 +14,7 @@ const ButtonVariants = {
 export default function Button({ handleButton, hidden, text, variant }: Props) {
     return (
         <>
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-4 pl-4 pr-4">
                 <button formAction={handleButton} type="submit" hidden={hidden} className={`w-full h-10 shadow rounded-sm text-white ${ButtonVariants[variant]}`}>{text}</button>
             </div>
         </>

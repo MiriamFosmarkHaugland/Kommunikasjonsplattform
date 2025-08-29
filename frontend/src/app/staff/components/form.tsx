@@ -7,7 +7,9 @@ export default function Form({children}: Props) {
     return (
         <div className="pl-4 pr-4">
             <form>
-                {children}
+                <table className="w-full">
+                    {children}
+                </table>
             </form>
         </div>
     )
