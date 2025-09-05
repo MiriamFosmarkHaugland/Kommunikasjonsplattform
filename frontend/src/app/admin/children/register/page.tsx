@@ -6,10 +6,11 @@ import uploadImage from "../../../../lib/api/upload";
 import Back from "../../components/back";
 import Button from "../../components/button";
 import TopBar from "../../components/topBar";
+import { Child } from "../page";
 
 export default function CreateChildrenPage() {
-
     const [image, setImage] = useState<File>();
+    const [child, setChild] = useState<Child>();
 
     async function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files != null) {
@@ -17,8 +18,7 @@ export default function CreateChildrenPage() {
         }
     }
     
-    async function handleSubmit(formData: FormData) {
-
+    async function handleSubmit() {
         let fileName = "";
 
         if(image) {
@@ -37,9 +37,9 @@ export default function CreateChildrenPage() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                First_name: formData.get("firstName"),
-                Last_name: formData.get("lastName"),
-                Date_of_birth: formData.get("dateOfBirth"),
+                First_name: child?.first_name,
+                Last_name: child?.last_name,
+                Date_of_birth: child?.date_of_birth,
                 Profile_image: fileName,
             }),
         });
@@ -50,19 +50,30 @@ export default function CreateChildrenPage() {
         } else {
             console.log("Child added successfully");
         }
-        
     }
+
+    function handleChange(key: string, value: string) {
+        setChild(prev => (
+            {
+                ...prev,
+                [key]: value
+            } as Child
+        ))
+    }
+
     return (
         <>
-            <TopBar leftItem={<Back/>} middleItem="Register new child" rightItem=""></TopBar>
-            <h1 className="text-sm p-4">BASIC INFORMATION</h1>
-            <Form>
-                <Field title={"Name: "} type={'text'} name={'firstName'} required hidden={false} placeholder="Kari"></Field>
-                <Field title={"Lastname:"} type={'text'} name={'lastName'} required hidden={false} placeholder="Nordmann"></Field>
-                <Field title={"Date og birth: "} type={'date'} name={'dateOfBirth'} required hidden={false}></Field>
-                <Field onChange={handleImage} title={"Add profile picture:"} type={'file'} name={'image'} hidden={false}></Field>
+            <TopBar leftItem={<Back/>} middleItem="Registrer ny elev" rightItem=""></TopBar>
+            <h1 className="text-sm p-4">PERSONLIG INFORMASJON</h1>
+            <Form onSubmit={handleSubmit}>
+                <table>
+                    <Field value={child?.first_name} title={"Navn: "} type={'text'} name={'firstName'} required hidden={false} placeholder="Kari" onChange={(e) => handleChange("first_name", e.target.value)}></Field>
+                    <Field value={child?.last_name} title={"Eternavn: "} type={'text'} name={'lastName'} required hidden={false} placeholder="Nordmann" onChange={(e) => handleChange("last_name", e.target.value)}></Field>
+                    <Field value={child?.date_of_birth} title={"Fødselsdato: "} type={'date'} name={'dateOfBirth'} required hidden={false} onChange={(e) => handleChange("date_of_birth", e.target.value)}></Field>
+                    <Field onChange={handleImage} title={"Profil bilde: "} type={'file'} name={'image'} hidden={false}></Field>
+                </table>
+                <Button text="Fullfør" hidden={false} variant='Primary'/>
             </Form>
-            <Button handleButton={handleSubmit} text="Submit" hidden={false} variant='Primary'/>
         </>
     );
 }

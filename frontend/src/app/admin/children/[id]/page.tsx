@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useRef, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Child } from '../page';
 import Edit from '../../components/edit';
 import Form from '../../components/form';
@@ -16,8 +16,6 @@ import Link from 'next/link';
 interface Props {
     params: Promise<{ id: string }>;
 }
-
-const imageEndpoint = "http://localhost:5041/images/";
 
 export default function ChildPage({ params }: Props) {
     const [canEdit, setCanEdit] = useState(false);
@@ -54,12 +52,11 @@ export default function ChildPage({ params }: Props) {
         }
     }
 
-    async function handleSubmit(formData: FormData) {
+    async function handleSubmit() {
 
         let fileName = child?.profile_image || "";
 
         if (image) {
-            const image = formData.get("image") as File;
             try {
                 const response = await uploadImage(image);
                 fileName = response.data.fileName;
@@ -73,9 +70,9 @@ export default function ChildPage({ params }: Props) {
             method: "PATCH",
             headers: {"Content-Type": "application/json",},
             body: JSON.stringify({
-                First_name: formData.get("firstName"),
-                Last_name: formData.get("lastName"),
-                Date_of_birth: formData.get("dateOfBirth"),
+                First_name: child?.first_name,
+                Last_name: child?.last_name,
+                Date_of_birth: child?.date_of_birth,
                 Profile_image: fileName,
             })
         });
@@ -102,11 +99,10 @@ export default function ChildPage({ params }: Props) {
         } as Child))
     }
 
-    async function handleDelete(formData: FormData) {
+    async function handleDelete() {
         let fileName = child?.profile_image || "";
 
         if (image) {
-            const image = formData.get("image") as File;
             try {
                 const response = await uploadImage(image);
                 fileName = response.data.fileName;
@@ -116,16 +112,7 @@ export default function ChildPage({ params }: Props) {
             }
         }
 
-        const response = await fetch(`http://localhost:5041/api/children/${id}`, {
-            method: "DELETE",
-            headers: {"Content-Type": "application/json",},
-            body: JSON.stringify({
-                First_Name: formData.delete("firstName"),
-                Last_Name: formData.delete("lastName"),
-                Date_of_birth: formData.get("dateOfBirth"),
-                Profile_image: fileName,
-            })
-        })
+        const response = await fetch(`http://localhost:5041/api/children/${id}`, {method: "DELETE"})
         if (!response.ok) {
             const errorText = await response.text();
             console.log("Failed to delete child", response.status, errorText)
@@ -153,7 +140,7 @@ export default function ChildPage({ params }: Props) {
                     <>
                         <TopBar 
                             leftItem={<Back/>} 
-                            middleItem={"Details"}
+                            middleItem={"Informasjon"}
                             rightItem={<Edit onClick={handleEdit}/>}>
                         </TopBar>
 
@@ -163,23 +150,19 @@ export default function ChildPage({ params }: Props) {
                             <div className="h-full w-full flex items-center justify-center text-gray-500">No Image</div>
                         )}
 
-                        <div className="flex justify-around bg-gray-100 h-12 items-center border-t border-b border-gray-200">
-                            <Link href="/staff">Details</Link>
-                            <Link href="/staff">Calendar</Link>
-                            <Link href="/staff">Documents</Link>
-                        </div>
-
-                        <h1 className="text-sm p-4">BASIC INFORMATION</h1>
+                        <h1 className="text-sm p-4">PERSONLIG INFORMASJON</h1>
                         
-                        <Form>
-                            <Field onChange={(e) => handleChange("first_name", e.target.value)} title={"Name"} value={child?.first_name} type={'text'} name={'firstName'} disabled={!canEdit} hidden={false} placeholder="Name..."/>
-                            <Field onChange={(e) => handleChange("last_name", e.target.value)} title={"Lastname"} value={child?.last_name} type={'text'} name={'lastName'} disabled={!canEdit} hidden={false} placeholder="Lastname..."/>
-                            <Field onChange={(e) => handleChange("date_of_birth", e.target.value)} title={"Date of birth"} value={child?.date_of_birth} type={'date'} name={'dateOfBirth'} disabled={!canEdit} hidden={false}/>
-                            <Field onChange={handleImage} title={"Profile picture"} type={'file'} name={'image'} disabled={!canEdit} hidden={!canEdit}/>
+                        <Form onSubmit={handleSubmit}>
+                            <table>
+                                <Field onChange={(e) => handleChange("first_name", e.target.value)} title={"Navn"} value={child?.first_name} type={'text'} name={'firstName'} disabled={!canEdit} hidden={false} placeholder="Name..."/>
+                                <Field onChange={(e) => handleChange("last_name", e.target.value)} title={"Etternavn"} value={child?.last_name} type={'text'} name={'lastName'} disabled={!canEdit} hidden={false} placeholder="Lastname..."/>
+                                <Field onChange={(e) => handleChange("date_of_birth", e.target.value)} title={"Fødselsdato"} value={child?.date_of_birth} type={'date'} name={'dateOfBirth'} disabled={!canEdit} hidden={false}/>
+                                <Field onChange={handleImage} title={"Profile picture"} type={'file'} name={'Bilde'} disabled={!canEdit} hidden={!canEdit}/>
+                            </table>
+                            <Button text='Fullfør' hidden={!canEdit} variant='Primary'/>
                         </Form>
-                        <Button handleButton={handleSubmit} text='Submit' hidden={!canEdit} variant='Primary'/>
-                        <Button handleButton={handleCancel} text="Cancel" hidden={!canEdit} variant="Neutral"/>
-                        <Button handleButton={handleDelete} text="Delete" hidden={!canEdit} variant='Danger'/>
+                        <Button handleButton={handleCancel} text="Avbryt" hidden={!canEdit} variant="Neutral"/>
+                        <Button handleButton={handleDelete} text="Slett" hidden={!canEdit} variant='Danger'/>
                     </>
                 )}
                 

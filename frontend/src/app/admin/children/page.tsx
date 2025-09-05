@@ -1,11 +1,8 @@
 "use client";
 import Link from "next/link"
-import { useState } from "react";
-import ContainerImage from "../components/containerImage";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import LabelledImage from "../components/labelledImage";
 import Home from "../components/home";
-import Image from "next/image";
-import AddIcon from "../components/icons/addIcon";
 import Choice from "../components/choice";
 import TopBar from "../components/topBar";
 import Post from "../components/icons/postIcon";
@@ -22,6 +19,8 @@ export type Child = {
     date_of_birth: string;
     profile_image: string;
 }
+
+const imageEndpoint = "http://localhost:5041/images/";
 
 export default function ChildrenPage() {
     
@@ -43,35 +42,35 @@ export default function ChildrenPage() {
     }
     return (
         <>
-            <TopBar leftItem={<Home/>} middleItem="Class 1A" rightItem={<Register/>}></TopBar>
+            <TopBar leftItem={<Home/>} middleItem="Klasse 1A" rightItem={<Register/>}></TopBar>
 
             <div className="grid grid-cols-5 pl-2 pr-2">
-                <Choice text="Count">
+                <Choice text="Opprop">
                     <CountIcon className="w-10 h-10"/>
                 </Choice>
-                <Choice text="Message">
+                <Choice text="Melding">
                     <MessageIcon className="w-10 h-10" />
                 </Choice>
-                <Choice text="Post">
+                <Choice text="Oppslag">
                     <Post className="w-10 h-10" />
                 </Choice>
-                <Choice text="Calendar">
+                <Choice text="Kalender">
                     <CalendarIcon className="w-10 h-10" />
                 </Choice>
-                <Choice text="Documents">
+                <Choice text="Dokumenter">
                     <DocumentIcon className="w-10 h-10" />
                 </Choice>
             </div>
             
             {childrenList.length === 0 ? (
                 <div className="flex flex-col items-center justify-center">
-                    <p>There are no children found.</p>
+                    <p>Ingen barn funnet.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center pl-2 pr-2">
                     {childrenList.map((child) => (
-                        <Link href={'/staff/children/' + child.id} key={child.id}>
-                            <ContainerImage key={child.id} name={child.first_name} image={child.profile_image}></ContainerImage>
+                        <Link href={'/admin/children/' + child.id} key={child.id}>
+                            <LabelledImage key={child.id} name={child.first_name} image={`${imageEndpoint}${child.profile_image}`}/>
                         </Link>
                 ))}
                 </div>
