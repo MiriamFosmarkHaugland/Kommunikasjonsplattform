@@ -1,11 +1,11 @@
 "use client";
-import Form from "../../components/form";
-import Field from "../../components/field";
+import Form from "../../../components/form";
+import Field from "../../../components/field";
 import { useState } from "react";
-import uploadImage from "../../../../lib/api/upload";
-import Back from "../../components/back";
-import Button from "../../components/button";
-import TopBar from "../../components/topBar";
+import uploadImage from "../../../../../lib/api/upload";
+import Back from "../../../components/back";
+import Button from "../../../components/button";
+import TopBar from "../../../components/topBar";
 import { Child } from "../page";
 
 export default function CreateChildrenPage() {

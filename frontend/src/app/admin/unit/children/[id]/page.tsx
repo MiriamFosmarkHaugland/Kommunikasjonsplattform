@@ -1,15 +1,15 @@
 "use client";
 import { use, useEffect, useState } from 'react';
 import { Child } from '../page';
-import Edit from '../../components/edit';
-import Form from '../../components/form';
-import Field from '../../components/field';
+import Edit from '../../../components/edit';
+import Form from '../../../components/form';
+import Field from '../../../components/field';
 import uploadImage from '@/lib/api/upload';
-import Button from '../../components/button';
+import Button from '../../../components/button';
 import NotFound from '@/app/components/notFound';
-import TopBar from '../../components/topBar';
-import Back from '../../components/back';
-import ShortDetails from '../../components/shortDetails';
+import TopBar from '../../../components/topBar';
+import Back from '../../../components/back';
+import ShortDetails from '../../../components/shortDetails';
 import Link from 'next/link';
 
 // Dynamic route segment for child details
@@ -157,12 +157,13 @@ export default function ChildPage({ params }: Props) {
                                 <Field onChange={(e) => handleChange("first_name", e.target.value)} title={"Navn"} value={child?.first_name} type={'text'} name={'firstName'} disabled={!canEdit} hidden={false} placeholder="Name..."/>
                                 <Field onChange={(e) => handleChange("last_name", e.target.value)} title={"Etternavn"} value={child?.last_name} type={'text'} name={'lastName'} disabled={!canEdit} hidden={false} placeholder="Lastname..."/>
                                 <Field onChange={(e) => handleChange("date_of_birth", e.target.value)} title={"Fødselsdato"} value={child?.date_of_birth} type={'date'} name={'dateOfBirth'} disabled={!canEdit} hidden={false}/>
-                                <Field onChange={handleImage} title={"Profile picture"} type={'file'} name={'Bilde'} disabled={!canEdit} hidden={!canEdit}/>
+                                <Field onChange={handleImage} title={"Profile picture"} type={'file'} name={"Bilde"} disabled={!canEdit} hidden={!canEdit}/>
                             </table>
                             <Button text='Fullfør' hidden={!canEdit} variant='Primary'/>
+                            <Button handleButton={handleCancel} text="Avbryt" hidden={!canEdit} variant="Neutral"/>
+                            <Button handleButton={handleDelete} text="Slett" hidden={!canEdit} variant='Danger'/>
                         </Form>
-                        <Button handleButton={handleCancel} text="Avbryt" hidden={!canEdit} variant="Neutral"/>
-                        <Button handleButton={handleDelete} text="Slett" hidden={!canEdit} variant='Danger'/>
+                        
                     </>
                 )}
                 

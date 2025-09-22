@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link"
 import { useState, useEffect } from "react";
-import LabelledImage from "../components/labelledImage";
-import Home from "../components/home";
-import Choice from "../components/choice";
-import TopBar from "../components/topBar";
-import Post from "../components/icons/postIcon";
-import CountIcon from "../components/icons/countIcon";
-import MessageIcon from "../components/icons/messageIcon";
-import CalendarIcon from "../components/icons/calendarIcon";
-import DocumentIcon from "../components/icons/documentIcon";
-import Register from "../components/register";
+import LabelledImage from "../../components/labelledImage";
+import Home from "../../components/home";
+import Choice from "../../components/choice";
+import TopBar from "../../components/topBar";
+import Post from "../../components/icons/postIcon";
+import CountIcon from "../../components/icons/countIcon";
+import MessageIcon from "../../components/icons/messageIcon";
+import CalendarIcon from "../../components/icons/calendarIcon";
+import DocumentIcon from "../../components/icons/documentIcon";
+import Register from "../../components/register";
 
 export type Child = {
     id: string;
@@ -67,9 +67,9 @@ export default function ChildrenPage() {
                     <p>Ingen barn funnet.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center pl-2 pr-2">
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2">
                     {childrenList.map((child) => (
-                        <Link href={'/admin/children/' + child.id} key={child.id}>
+                        <Link href={'/admin/unit/children/' + child.id} key={child.id}>
                             <LabelledImage key={child.id} name={child.first_name} image={`${imageEndpoint}${child.profile_image}`}/>
                         </Link>
                 ))}
