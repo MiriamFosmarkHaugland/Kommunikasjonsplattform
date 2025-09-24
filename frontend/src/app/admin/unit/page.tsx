@@ -3,14 +3,15 @@ import Link from "next/link";
 import LeftArrowIcon from "../components/icons/leftArrowIcon";
 import TopBar from "../components/topBar";
 import LabelledImage from "../components/labelledImage";
+import Back from "../components/back";
 
 export default function UnitPage() {
 
     return (
         <>
-            <TopBar leftItem={<LeftArrowIcon/>} middleItem="Årstrinn" rightItem=""/>
+            <TopBar leftItem={<Back />} middleItem="Årstrinn" rightItem=""/>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2 pt-4">
-                <Link href={"/admin/unit/children"}>
+                <Link href={"/admin/unit/user"}>
                     <LabelledImage image="/1klasse.png" name="1.Klasse"></LabelledImage>
                 </Link>
                 <LabelledImage image="" name="2.Klasse"></LabelledImage>

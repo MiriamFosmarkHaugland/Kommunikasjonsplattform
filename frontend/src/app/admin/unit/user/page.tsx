@@ -12,32 +12,35 @@ import CalendarIcon from "../../components/icons/calendarIcon";
 import DocumentIcon from "../../components/icons/documentIcon";
 import Register from "../../components/register";
 
-export type Child = {
+export type User = {
     id: string;
-    first_name: string;
-    last_name: string;
-    date_of_birth: string;
-    profile_image: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    address: string;
+    phoneNumber: string;
+    email: string;
+    image: string;
 }
 
 const imageEndpoint = "http://localhost:5041/images/";
 
-export default function ChildrenPage() {
+export default function UserPage() {
     
-    const [childrenList, setChildrenList] = useState<Child[]>([]);
+    const [userList, setUserList] = useState<User[]>([]);
 
     useEffect(() => {
-        fetchChildren();
+        fetchUser();
     }, []);
 
-    async function fetchChildren() {
+    async function fetchUser() {
         try {
-            const response = await fetch("http://localhost:5041/api/children");
+            const response = await fetch("http://localhost:5041/api/user");
             const data = await response.json();
-            setChildrenList(data);
-            console.log("Children fetched successfully:", data);
+            setUserList(data);
+            console.log("User fetched successfully:", data);
         } catch (error) {
-            console.error("Error fetching children:", error);
+            console.error("Error fetching user:", error);
         }
     }
     return (
@@ -62,15 +65,15 @@ export default function ChildrenPage() {
                 </Choice>
             </div>
             
-            {childrenList.length === 0 ? (
+            {userList.length === 0 ? (
                 <div className="flex flex-col items-center justify-center">
-                    <p>Ingen barn funnet.</p>
+                    <p>Ingen brukere funnet.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2">
-                    {childrenList.map((child) => (
-                        <Link href={'/admin/unit/children/' + child.id} key={child.id}>
-                            <LabelledImage key={child.id} name={child.first_name} image={`${imageEndpoint}${child.profile_image}`}/>
+                    {userList.map((user) => (
+                        <Link href={'/admin/unit/user/' + user.id} key={user.id}>
+                            <LabelledImage key={user.id} name={user.firstName} image={`${imageEndpoint}${user.image}`}/>
                         </Link>
                 ))}
                 </div>

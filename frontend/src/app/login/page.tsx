@@ -1,13 +1,12 @@
 import Link from "next/link";
 import LeftArrowIcon from "../admin/components/icons/leftArrowIcon";
+import Back from "../admin/components/back";
 
 export default function LoginPage() {
     return(
         <>
         <div className="w-screen h-screen">
-            <Link href="/">
-                <LeftArrowIcon/>
-            </Link>
+            <Back />
             
             <div className="flex items-center h-1/3 bg-[#f8f8f8] pl-8">
                 <h1 className="text-2xl">Grunnskole</h1>

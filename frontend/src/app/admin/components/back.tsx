@@ -1,10 +1,12 @@
-import Link from 'next/link';
+"use client";
 import LeftArrowIcon from './icons/leftArrowIcon';
+import { useRouter } from 'next/navigation';
 
 export default function Back() {
+    const router = useRouter()
     return (
-        <Link href='/admin/unit/children/'>
+        <button onClick={() => router.back()}>
             <LeftArrowIcon className="w-8 h-8"/>
-        </Link>
+        </button>
     )
 }
