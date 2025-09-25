@@ -9,7 +9,7 @@ interface Props {
 export default function TopBar({middleItem, leftItem, rightItem}: Props) {
     return (
         <>
-            <div className="top-0 w-full h-24 bg-[#f8f8f8]">
+            <div className="top-0 w-full h-30 bg-[#f8f8f8]">
                 <div className="flex justify-between items-center h-full">
                     <div className="w-24 flex items-center justify-center">{leftItem}</div>
                     <h1 className="text-xl relative">{middleItem}</h1>

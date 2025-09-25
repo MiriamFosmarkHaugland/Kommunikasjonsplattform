@@ -1,13 +1,11 @@
 "use client";
-import Form from "../../../components/form";
-import Field from "../../../components/field";
+import Form from "../../../../components/form";
+import Field from "../../../../components/field";
 import { useState } from "react";
-import uploadImage from "../../../../../lib/api/upload";
-import Button from "../../../components/button";
-import TopBar from "../../../components/topBar";
+import uploadImage from "../../../../../../lib/api/upload";
+import Button from "../../../../components/button";
+import TopBar from "../../../../components/topBar";
 import { User } from "../page";
-import Link from "next/link";
-import LeftArrowIcon from "@/app/admin/components/icons/leftArrowIcon";
 import Back from "@/app/admin/components/back";
 
 export default function CreateUserPage() {
@@ -72,15 +70,19 @@ export default function CreateUserPage() {
             <h1 className="text-sm p-4">PERSONLIG INFORMASJON</h1>
             <Form onSubmit={handleSubmit}>
                 <table className="w-full">
-                    <Field value={user?.firstName} title={"Fornavn"} type={'text'} required onChange={(e) => handleChange("firstName", e.target.value)}></Field>
-                    <Field value={user?.lastName} title={"Etternavn"} type={'text'} required onChange={(e) => handleChange("lastName", e.target.value)}></Field>
-                    <Field value={user?.dateOfBirth} title={"Fødselsdato"} type={'date'} required onChange={(e) => handleChange("dateOfBirth", e.target.value)}></Field>
-                    <Field value={user?.address} title={"Adresse"} type={'text'} required onChange={(e) => handleChange("address", e.target.value)}></Field>
-                    <Field value={user?.phoneNumber} title={"Telefon"} type={'text'} required onChange={(e) => handleChange("phoneNumber", e.target.value)}></Field>
-                    <Field value={user?.email} title={"Email"} type={'text'} required onChange={(e) => handleChange("email", e.target.value)}></Field>
-                    <Field onChange={handleImage} title={"Profil bilde"} type={'file'}></Field>
+                    <tbody>
+                        <Field value={user?.firstName || ""} title={"Fornavn"} type={'text'} required onChange={(e) => handleChange("firstName", e.target.value)}></Field>
+                        <Field value={user?.lastName || ""} title={"Etternavn"} type={'text'} required onChange={(e) => handleChange("lastName", e.target.value)}></Field>
+                        <Field value={user?.dateOfBirth || ""} title={"Fødselsdato"} type={'date'} required onChange={(e) => handleChange("dateOfBirth", e.target.value)}></Field>
+                        <Field value={user?.address || ""} title={"Adresse"} type={'text'} required onChange={(e) => handleChange("address", e.target.value)}></Field>
+                        <Field value={user?.phoneNumber || ""} title={"Telefon"} type={'text'} required onChange={(e) => handleChange("phoneNumber", e.target.value)}></Field>
+                        <Field value={user?.email || ""} title={"Email"} type={'text'} onChange={(e) => handleChange("email", e.target.value)}></Field>
+                        <Field title={"Profil bilde"} type={'file'} onChange={handleImage}></Field>
+                    </tbody>
                 </table>
-                <Button text="Fullfør" variant='Primary'/>
+                <div className="px-4 pt-4">
+                    <Button text="Fullfør" variant='Primary' />
+                </div>
             </Form>
         </>
     );

@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link"
 import { useState, useEffect } from "react";
-import LabelledImage from "../../components/labelledImage";
-import Home from "../../components/home";
-import Choice from "../../components/choice";
-import TopBar from "../../components/topBar";
-import Post from "../../components/icons/postIcon";
-import CountIcon from "../../components/icons/countIcon";
-import MessageIcon from "../../components/icons/messageIcon";
-import CalendarIcon from "../../components/icons/calendarIcon";
-import DocumentIcon from "../../components/icons/documentIcon";
-import Register from "../../components/register";
+import LabelledImage from "../../../components/labelledImage";
+import Home from "../../../components/home";
+import Choice from "../../../components/choice";
+import TopBar from "../../../components/topBar";
+import Post from "../../../components/icons/postIcon";
+import CountIcon from "../../../components/icons/countIcon";
+import MessageIcon from "../../../components/icons/messageIcon";
+import CalendarIcon from "../../../components/icons/calendarIcon";
+import DocumentIcon from "../../../components/icons/documentIcon";
+import Register from "../../../components/register";
 
 export type User = {
     id: string;
@@ -72,7 +72,7 @@ export default function UserPage() {
             ) : (
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2">
                     {userList.map((user) => (
-                        <Link href={'/admin/unit/user/' + user.id} key={user.id}>
+                        <Link href={'/admin/level/group/users/' + user.id} key={user.id}>
                             <LabelledImage key={user.id} name={user.firstName} image={`${imageEndpoint}${user.image}`}/>
                         </Link>
                 ))}

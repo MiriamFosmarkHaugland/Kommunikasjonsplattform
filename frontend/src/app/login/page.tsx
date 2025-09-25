@@ -6,10 +6,10 @@ export default function LoginPage() {
     return(
         <>
         <div className="w-screen h-screen">
-            <Back />
-            
-            <div className="flex items-center h-1/3 bg-[#f8f8f8] pl-8">
+            <div className="flex flex-col items-middle justify-evenly h-1/3 bg-[#f8f8f8] pl-8">
+                <Back />
                 <h1 className="text-2xl">Grunnskole</h1>
+                <p>Skolevang Skole</p>
             </div>
             
             <div className="flex flex-col p-8 text-xl gap-8">

@@ -3,7 +3,7 @@ import AddIcon from "./icons/addIcon";
 
 export default function Register() {
     return(
-        <Link href="/admin/unit/user/register" className="flex flex-col items-center w-24">
+        <Link href="/admin/level/user/register" className="flex flex-col items-center w-24">
             <AddIcon className="w-8 h-8"/>
         </Link>
     )

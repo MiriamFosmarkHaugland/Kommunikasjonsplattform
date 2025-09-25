@@ -5,13 +5,13 @@ import TopBar from "../components/topBar";
 import LabelledImage from "../components/labelledImage";
 import Back from "../components/back";
 
-export default function UnitPage() {
+export default function LevelPage() {
 
     return (
         <>
             <TopBar leftItem={<Back />} middleItem="Årstrinn" rightItem=""/>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2 pt-4">
-                <Link href={"/admin/unit/user"}>
+                <Link href={"/admin/level/group"}>
                     <LabelledImage image="/1klasse.png" name="1.Klasse"></LabelledImage>
                 </Link>
                 <LabelledImage image="" name="2.Klasse"></LabelledImage>

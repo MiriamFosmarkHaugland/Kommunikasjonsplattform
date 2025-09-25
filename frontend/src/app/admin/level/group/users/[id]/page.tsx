@@ -1,16 +1,15 @@
 "use client";
 import { use, useEffect, useState } from 'react';
 import { User } from '../page';
-import Edit from '../../../components/edit';
-import Form from '../../../components/form';
-import Field from '../../../components/field';
+import Edit from '../../../../components/edit';
+import Form from '../../../../components/form';
+import Field from '../../../../components/field';
 import uploadImage from '@/lib/api/upload';
-import Button from '../../../components/button';
+import Button from '../../../../components/button';
 import NotFound from '@/app/components/notFound';
-import TopBar from '../../../components/topBar';
-import Back from '../../../components/back';
-import ShortDetails from '../../../components/shortDetails';
-import Link from 'next/link';
+import TopBar from '../../../../components/topBar';
+import Back from '../../../../components/back';
+import ShortDetails from '../../../../components/shortDetails';
 
 // Dynamic route segment for user details
 interface Props {
@@ -73,7 +72,10 @@ export default function UserPage({ params }: Props) {
                 firstName: user?.firstName,
                 lastName: user?.lastName,
                 dateOfBirth: user?.dateOfBirth,
-                Profile_image: fileName,
+                address: user?.address,
+                phoneNumber: user?.phoneNumber,
+                email: user?.email,
+                image: fileName,
             })
         });
         if (!response.ok) {
@@ -152,18 +154,22 @@ export default function UserPage({ params }: Props) {
                         <h1 className="text-sm p-4">PERSONLIG INFORMASJON</h1>
                         
                         <Form onSubmit={handleSubmit}>
-                            <table>
-                                <Field onChange={(e) => handleChange("firstName", e.target.value)} title={"Navn"} value={user?.firstName} type={'text'} disabled={!canEdit} />
-                                <Field onChange={(e) => handleChange("lastName", e.target.value)} title={"Etternavn"} value={user?.lastName} type={'text'} disabled={!canEdit} />
-                                <Field onChange={(e) => handleChange("dateOfBirth", e.target.value)} title={"Fødselsdato"} value={user?.dateOfBirth} type={'date'} disabled={!canEdit}/>
-                                <Field onChange={(e) => handleChange("address", e.target.value)} title={"Adresse"} value={user?.address} type={'text'} disabled={!canEdit} />
-                                <Field onChange={(e) => handleChange("phoneNumber", e.target.value)} title={"Telefon"} value={user?.phoneNumber} type={'text'} disabled={!canEdit} />
-                                <Field onChange={(e) => handleChange("email", e.target.value)} title={"Email"} value={user?.email} type={'text'} disabled={!canEdit} />
-                                <Field onChange={handleImage} title={"Profil bilde"} type={'file'} disabled={!canEdit} hidden={!canEdit}/>
+                            <table className='w-full'>
+                                <tbody>
+                                    <Field onChange={(e) => handleChange("firstName", e.target.value)} title={"Navn"} value={user?.firstName || ""} type={'text'} disabled={!canEdit} />
+                                    <Field onChange={(e) => handleChange("lastName", e.target.value)} title={"Etternavn"} value={user?.lastName || ""} type={'text'} disabled={!canEdit} />
+                                    <Field onChange={(e) => handleChange("dateOfBirth", e.target.value)} title={"Fødselsdato"} value={user?.dateOfBirth || ""} type={'date'} disabled={!canEdit}/>
+                                    <Field onChange={(e) => handleChange("address", e.target.value)} title={"Adresse"} value={user?.address || ""} type={'text'} disabled={!canEdit} />
+                                    <Field onChange={(e) => handleChange("phoneNumber", e.target.value)} title={"Telefon"} value={user?.phoneNumber || ""} type={'text'} disabled={!canEdit} />
+                                    <Field onChange={(e) => handleChange("email", e.target.value)} title={"Email"} value={user?.email || ""} type={'text'} disabled={!canEdit} />
+                                    <Field onChange={handleImage} title={"Profil bilde"} type={'file'} disabled={!canEdit} hidden={!canEdit}/>
+                                </tbody>
                             </table>
-                            <Button text='Fullfør' hidden={!canEdit} variant='Primary'/>
-                            <Button handleButton={handleCancel} text="Avbryt" hidden={!canEdit} variant="Neutral"/>
-                            <Button handleButton={handleDelete} text="Slett" hidden={!canEdit} variant='Danger'/>
+                            <div className="flex flex-col gap-4 px-4 pt-4">
+                                <Button text='Fullfør' hidden={!canEdit} variant='Primary'/>
+                                <Button handleButton={handleCancel} text="Avbryt" hidden={!canEdit} variant="Neutral"/>
+                                <Button handleButton={handleDelete} text="Slett" hidden={!canEdit} variant='Danger'/>
+                            </div>
                         </Form>
                         
                     </>

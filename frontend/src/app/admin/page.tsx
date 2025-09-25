@@ -8,7 +8,7 @@ export default function AdminPage() {
         <>
             <TopBar leftItem={<LogOut/>} middleItem={"Admin"} rightItem={""}/>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 place-items-center px-2 pt-4">
-                <Link href="/admin/unit">
+                <Link href="/admin/level">
                     <LabelledImage image="/årstrinn.jpg" name="Årstrinn"/>
                 </Link>
                 <LabelledImage image="/alle_elever.jpg" name="Alle elever"/>
