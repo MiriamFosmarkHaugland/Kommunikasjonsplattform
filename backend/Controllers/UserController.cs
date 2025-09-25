@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend;
+using backend.DTOs;
+
+// This code was generated using the ASP.NET code-generation tool:
+// dotnet aspnet-codegenerator controller -name ChildrenController -async -api -m Children -dc InstitutionDbContext -outDir Controllers
+// It creates a CRUD (Create, Read, Update, Delete) API controller for the Children entity using Entity Framework Core
 
 namespace Backend.Controllers
 {
@@ -39,6 +43,65 @@ namespace Backend.Controllers
             }
 
             return user;
+        }
+
+        // PATCH: api/User/5
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchUser(int id, [FromBody] PatchUserDto patchDto)
+        {
+            var userEntity = await _context.User.FindAsync(id);
+
+            if (userEntity == null)
+            {
+                return NotFound();
+            }
+
+            // Manually apply updates if properties are not null
+            if (patchDto.FirstName != null)
+            {
+                userEntity.FirstName = patchDto.FirstName;
+            }
+            if (patchDto.LastName != null)
+            {
+                userEntity.LastName = patchDto.LastName;
+            }
+            if (patchDto.Address != null)
+            {
+                userEntity.Address = patchDto.Address;
+            }
+            if (patchDto.PhoneNumber != null)
+            {
+                userEntity.PhoneNumber = patchDto.PhoneNumber;
+            }
+            if (patchDto.Email != null)
+            {
+                userEntity.Email = patchDto.Email;
+            }
+            if (patchDto.DateOfBirth != null)
+            {
+                userEntity.DateOfBirth = patchDto.DateOfBirth;
+            }
+            if (patchDto.Image != null)
+            {
+                userEntity.Image = patchDto.Image;
+            }
+
+            // Check for validation errors after applying the patch
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Save changes to the database
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            return Ok(userEntity);
         }
 
         // PUT: api/User/5
