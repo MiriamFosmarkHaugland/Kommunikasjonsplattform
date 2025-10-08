@@ -1,6 +1,5 @@
 "use client";
 import { use, useEffect, useState } from 'react';
-import { User } from '../page';
 import Edit from '../../../../components/edit';
 import Form from '../../../../components/form';
 import Field from '../../../../components/field';
@@ -10,6 +9,9 @@ import NotFound from '@/app/components/notFound';
 import TopBar from '../../../../components/topBar';
 import Back from '../../../../components/back';
 import ShortDetails from '../../../../components/shortDetails';
+import { deleteUser, updateUser } from '@/lib/api/user';
+import { User } from '@/lib/types/user';
+import { LoadState } from '@/lib/types/loadState';
 
 // Dynamic route segment for user details
 interface Props {
@@ -21,9 +23,8 @@ export default function UserPage({ params }: Props) {
     const [image, setImage] = useState<File | null>(null);
     const [user, setUser] = useState<User>();
     const [initialUserValue, setInitialUserValue] = useState<User>();
-    const [hasFailed, setHasFailed] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const { id } = use(params);
+    const [loadState, setLoadState] = useState<LoadState>("idle")
 
     async function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files != null) {
@@ -39,12 +40,11 @@ export default function UserPage({ params }: Props) {
         try {
             const response = await fetch(`http://localhost:5041/api/user/${id}`);
             if (response.status === 404) {
-                setHasFailed(true)
+                setLoadState("failed")
             }
             const data = await response.json();
             setUser(data);
             setInitialUserValue(data);
-            setIsLoading(false);
             console.log("User fetched successfully:", data);
         } catch (error) {
             console.error("Error fetching user:", error);
@@ -64,11 +64,8 @@ export default function UserPage({ params }: Props) {
                 console.error("Error uploading image:", error);
             }
         }
-
-        const response = await fetch(`http://localhost:5041/api/user/${id}`, {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json",},
-            body: JSON.stringify({
+        try {
+            await updateUser(id,{
                 firstName: user?.firstName,
                 lastName: user?.lastName,
                 dateOfBirth: user?.dateOfBirth,
@@ -77,16 +74,10 @@ export default function UserPage({ params }: Props) {
                 email: user?.email,
                 image: fileName,
             })
-        });
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Failed to update user", response.status, errorText);
-            return;
-        } else {
-            console.log("User updated successfully");
-            await fetchUserById();
-            setCanEdit(false);
+        } catch (error) {
+            console.log("Error updating user:", error)
         }
+        setCanEdit(false);
     }
 
     async function handleEdit() {
@@ -114,12 +105,10 @@ export default function UserPage({ params }: Props) {
             }
         }
 
-        const response = await fetch(`http://localhost:5041/api/user/${id}`, {method: "DELETE"})
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.log("Failed to delete User", response.status, errorText)
-        } else {
-            console.log("User deleted successfully")
+        try {
+            await deleteUser(id)
+        } catch (error){
+            console.log("Error deleting user:", error)
         }
     }
 
@@ -128,12 +117,12 @@ export default function UserPage({ params }: Props) {
         setCanEdit(false);
     }
 
-    if (hasFailed) {
+    if (loadState == "failed") {
         return <NotFound />
     } else {
         return (
             <>
-                {isLoading ? (
+                {loadState == "loading" ? (
                     <div className='flex flex-col items-center justify-center h-screen bg-white'>
                     <p>Loading...</p>
                     </div>

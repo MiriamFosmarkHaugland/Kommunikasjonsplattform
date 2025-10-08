@@ -1,5 +1,4 @@
 import Link from "next/link";
-import LeftArrowIcon from "../admin/components/icons/leftArrowIcon";
 import Back from "../admin/components/back";
 
 export default function LoginPage() {

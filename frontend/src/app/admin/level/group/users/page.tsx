@@ -11,17 +11,7 @@ import MessageIcon from "../../../components/icons/messageIcon";
 import CalendarIcon from "../../../components/icons/calendarIcon";
 import DocumentIcon from "../../../components/icons/documentIcon";
 import Register from "../../../components/register";
-
-export type User = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    address: string;
-    phoneNumber: string;
-    email: string;
-    image: string;
-}
+import { User } from "@/lib/types/user";
 
 const imageEndpoint = "http://localhost:5041/images/";
 

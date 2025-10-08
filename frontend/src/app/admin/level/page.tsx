@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import LeftArrowIcon from "../components/icons/leftArrowIcon";
 import TopBar from "../components/topBar";
 import LabelledImage from "../components/labelledImage";
 import Back from "../components/back";

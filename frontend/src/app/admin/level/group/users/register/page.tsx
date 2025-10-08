@@ -5,8 +5,9 @@ import { useState } from "react";
 import uploadImage from "../../../../../../lib/api/upload";
 import Button from "../../../../components/button";
 import TopBar from "../../../../components/topBar";
-import { User } from "../page";
 import Back from "@/app/admin/components/back";
+import { addUser } from "@/lib/api/user";
+import { User } from "@/lib/types/user";
 
 export default function CreateUserPage() {
     const [image, setImage] = useState<File>();
@@ -20,7 +21,6 @@ export default function CreateUserPage() {
     
     async function handleSubmit() {
         let fileName = "";
-
         if(image) {
             try {
                 const response = await uploadImage(image);
@@ -30,13 +30,8 @@ export default function CreateUserPage() {
                 console.error("Error uploading image:", error);
             }
         }
-
-        const response = await fetch("http://localhost:5041/api/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        try {
+            await addUser({
                 firstName: user?.firstName,
                 lastName: user?.lastName,
                 dateOfBirth: user?.dateOfBirth,
@@ -44,14 +39,9 @@ export default function CreateUserPage() {
                 phoneNumber: user?.phoneNumber,
                 email: user?.email,
                 image: fileName,
-            }),
-        });
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Failed to add user", response.status, errorText);
-            return;
-        } else {
-            console.log("user added successfully");
+            })
+        } catch (error) {
+            console.error("Failed to add user:", error)
         }
     }
 
