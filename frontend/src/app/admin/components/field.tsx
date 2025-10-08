@@ -8,15 +8,16 @@ interface Props {
     disabled?: boolean;
     value?: string;
     hidden?: boolean;
+    accept?: string;
 }
 
-export default function Field({ title, type, onChange, required = false, disabled = false, value , hidden}: Props) {
+export default function Field({ title, type, onChange, required = false, disabled = false, value , hidden, accept}: Props) {
     if(hidden) return null;
     return (
         <tr>
             <td className="w-1/2 pl-4 font-medium text-gray-600 border-t border-b border-gray-400">{title}</td>
             <td className="w-1/2 border-t border-b border-l pl-4 border-gray-400">
-                <input onChange={onChange} value={value} type={type} required={required} disabled={disabled} className="block h-8 w-full disabled:border-none"></input>
+                <input onChange={onChange} value={value} type={type} required={required} disabled={disabled} accept={accept} className="block h-8 w-full disabled:border-none"></input>
             </td>
         </tr>
     )

@@ -151,7 +151,7 @@ export default function UserPage({ params }: Props) {
                                     <Field onChange={(e) => handleChange("address", e.target.value)} title={"Adresse"} value={user?.address || ""} type={'text'} disabled={!canEdit} />
                                     <Field onChange={(e) => handleChange("phoneNumber", e.target.value)} title={"Telefon"} value={user?.phoneNumber || ""} type={'text'} disabled={!canEdit} />
                                     <Field onChange={(e) => handleChange("email", e.target.value)} title={"Email"} value={user?.email || ""} type={'text'} disabled={!canEdit} />
-                                    <Field onChange={handleImage} title={"Profil bilde"} type={'file'} disabled={!canEdit} hidden={!canEdit}/>
+                                    <Field onChange={handleImage} title={"Profil bilde"} type={'file'} disabled={!canEdit} hidden={!canEdit} accept='image/*'/>
                                 </tbody>
                             </table>
                             <div className="flex flex-col gap-4 px-4 pt-4">

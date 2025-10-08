@@ -67,7 +67,7 @@ export default function CreateUserPage() {
                         <Field value={user?.address || ""} title={"Adresse"} type={'text'} required onChange={(e) => handleChange("address", e.target.value)}></Field>
                         <Field value={user?.phoneNumber || ""} title={"Telefon"} type={'text'} required onChange={(e) => handleChange("phoneNumber", e.target.value)}></Field>
                         <Field value={user?.email || ""} title={"Email"} type={'text'} onChange={(e) => handleChange("email", e.target.value)}></Field>
-                        <Field title={"Profil bilde"} type={'file'} onChange={handleImage}></Field>
+                        <Field title={"Profil bilde"} type={'file'} onChange={handleImage} accept='image/*'></Field>
                     </tbody>
                 </table>
                 <div className="px-4 pt-4">
