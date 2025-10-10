@@ -12,8 +12,8 @@ if (sqlUser == null || sqlPassword == null)
     throw new ArgumentNullException("Environment variable SQL_USER or SQL_PASSWORD is not set");
 }
 
-// Configure the app to use DbContext with a MySQL database using the specified connection string.
-string connectionString = $"server=localhost;port=3306;database=communication_platform;user={sqlUser});password={sqlPassword}";
+// Configure the app to use PlatformDbContext with a MySQL database using the specified connection string.
+string connectionString = $"server=localhost;port=3306;database=communication_platform;user={sqlUser};password={sqlPassword}";
 builder.Services.AddDbContext<PlatformDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
