@@ -1,9 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-
 public class Level
 {
     public int Id { get; set; }
     public string? Name { get; set; }
+    public string? Image { get; set; }
 
     // One-to-many -> One organization can have many levels
     public int OrganizationId { get; set; } // Required foreign key property

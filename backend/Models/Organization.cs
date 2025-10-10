@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using Backend;
-
 public class Organization
 {
     public int Id { get; set; }
@@ -9,6 +6,7 @@ public class Organization
     public string? Name { get; set; }
     public string? Address { get; set; }
     public string? PhoneNumber { get; set; }
+    public string? Image { get; set; }
 
     // One-to-many (One org to many levels)
     public List<Level> Level { get; } = [];

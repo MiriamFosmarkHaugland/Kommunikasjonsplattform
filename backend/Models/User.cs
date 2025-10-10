@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using Backend;
-
 public class User
 {
     public int Id { get; set; }
