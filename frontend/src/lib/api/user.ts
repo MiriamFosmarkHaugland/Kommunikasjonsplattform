@@ -1,45 +1,36 @@
+import axios from "axios";
 import { User } from "../types/user";
 
-export async function addUser(user: Partial<User>){
-    const response = await fetch("http://localhost:5041/api/user", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-    });
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Failed to add user", response.status, errorText);
-    } else {
-        console.log("user added successfully");
+const BASE_URL = "http://localhost:5041/api/user"
+
+export async function addUser(user: Partial<User>) {
+    try {
+        const response = await axios.post(BASE_URL, user, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+    } catch (error) {
+        throw error
     }
 }
 
 export async function updateUser(id: string, user: Partial<User>){
-    const response = await fetch(`http://localhost:5041/api/user/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-    });
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Failed to update user", response.status, errorText)
-    } else {
-        console.log("User updated successfully")
+    try {
+        const response = await axios.patch(`${BASE_URL}/${id}`, user, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+    } catch (error) {
+        throw error
     }
 }
 
 export async function deleteUser(id: string) {
-    const response = await fetch(`http://localhost:5041/api/user/${id}`, {
-        method: "DELETE"
-    });
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.log("Failed to delete user", response.status, errorText)
-    } else {
-        console.log("User deleted successfully")
+    try {
+        const response = await axios.delete(`${BASE_URL}/${id}`);
+    } catch (error) {
+        throw error
     }
 }

@@ -28,9 +28,8 @@ export default function UserPage() {
             const response = await fetch("http://localhost:5041/api/user");
             const data = await response.json();
             setUserList(data);
-            console.log("User fetched successfully:", data);
         } catch (error) {
-            console.error("Error fetching user:", error);
+            console.error("Failed to fetch user", error);
         }
     }
     return (

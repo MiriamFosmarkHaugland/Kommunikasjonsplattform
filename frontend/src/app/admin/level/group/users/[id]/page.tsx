@@ -12,6 +12,7 @@ import ShortDetails from '../../../../components/shortDetails';
 import { deleteUser, updateUser } from '@/lib/api/user';
 import { User } from '@/lib/types/user';
 import { LoadState } from '@/lib/types/loadState';
+import { useRouter } from 'next/navigation';
 
 // Dynamic route segment for user details
 interface Props {
@@ -24,7 +25,8 @@ export default function UserPage({ params }: Props) {
     const [user, setUser] = useState<User>();
     const [initialUserValue, setInitialUserValue] = useState<User>();
     const { id } = use(params);
-    const [loadState, setLoadState] = useState<LoadState>("idle")
+    const [loadState, setLoadState] = useState<LoadState>("idle");
+    const router = useRouter();
 
     async function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files != null) {
@@ -45,9 +47,8 @@ export default function UserPage({ params }: Props) {
             const data = await response.json();
             setUser(data);
             setInitialUserValue(data);
-            console.log("User fetched successfully:", data);
         } catch (error) {
-            console.error("Error fetching user:", error);
+            console.error("Failed to fetch user", error);
         }
     }
 
@@ -59,9 +60,8 @@ export default function UserPage({ params }: Props) {
             try {
                 const response = await uploadImage(image);
                 fileName = response.data.fileName;
-                console.log("Image uploaded successfully", response.data.fileName);
             } catch (error) {
-                console.error("Error uploading image:", error);
+                console.error("Failed to upload image", error);
             }
         }
         try {
@@ -73,9 +73,10 @@ export default function UserPage({ params }: Props) {
                 phoneNumber: user?.phoneNumber,
                 email: user?.email,
                 image: fileName,
-            })
+            });
+            fetchUserById();
         } catch (error) {
-            console.log("Error updating user:", error)
+            console.error("Failed to update user", error)
         }
         setCanEdit(false);
     }
@@ -99,16 +100,15 @@ export default function UserPage({ params }: Props) {
             try {
                 const response = await uploadImage(image);
                 fileName = response.data.fileName;
-                console.log("Image uploaded successfully", response.data.fileName);
             } catch (error) {
-                console.error("Error uploading image:", error);
+                console.error("Failed to upload image", error);
             }
         }
-
         try {
             await deleteUser(id)
+            router.back();
         } catch (error){
-            console.log("Error deleting user:", error)
+            console.error("Failed to delete user", error)
         }
     }
 
@@ -136,7 +136,7 @@ export default function UserPage({ params }: Props) {
 
                         {user?.image ? (
                             <ShortDetails name={user.firstName} lastName={user.lastName} image={user.image}/>
-                        ): (
+                        ):(
                             <div className="h-full w-full flex items-center justify-center text-gray-500">No Image</div>
                         )}
 

@@ -8,10 +8,12 @@ import TopBar from "../../../../components/topBar";
 import Back from "@/app/admin/components/back";
 import { addUser } from "@/lib/api/user";
 import { User } from "@/lib/types/user";
+import { useRouter } from "next/navigation";
 
 export default function CreateUserPage() {
     const [image, setImage] = useState<File>();
     const [user, setUser] = useState<User>();
+    const router = useRouter();
 
     async function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files != null) {
@@ -25,9 +27,8 @@ export default function CreateUserPage() {
             try {
                 const response = await uploadImage(image);
                 fileName = response.data.fileName;
-                console.log("Image uploaded successfully:", response.data.fileName);
             } catch (error) {
-                console.error("Error uploading image:", error);
+                console.error("Failed to upload image", error);
             }
         }
         try {
@@ -40,8 +41,9 @@ export default function CreateUserPage() {
                 email: user?.email,
                 image: fileName,
             })
+            router.back();
         } catch (error) {
-            console.error("Failed to add user:", error)
+            console.error("Failed to add user", error)
         }
     }
 
